@@ -234,7 +234,16 @@ static void merge_mujoco_asset(const pugi::xml_node & in,
   }
   copy_assets("texture", texturePath);
   copy_assets("mesh", meshPath);
+
+  // Ajout du traitement pour les nœuds <model>
+  for(const auto & model : in.children("model"))
+  {
+    auto model_out = out.append_copy(model);
+    // update_name(model_out);
+    update_file(model_out, meshPath);
+  }
 }
+
 
 static void merge_mujoco_contact(const pugi::xml_node & in, pugi::xml_node & out, const std::string & robot)
 {
