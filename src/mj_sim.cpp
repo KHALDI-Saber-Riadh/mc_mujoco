@@ -900,6 +900,7 @@ bool MjSimImpl::stepSimulation()
     }
     rem_steps--;
   }
+  config.sync_real_time = true;
   if(config.sync_real_time)
   {
     std::this_thread::sleep_until(start_step + duration_us(1e6 * model->opt.timestep) + mj_sync_delay);
@@ -984,6 +985,7 @@ bool MjSimImpl::render()
     ImGui::Text("Wallclock time: %.2fs", wallclock);
     if(ImGui::Checkbox("Sync with real-time", &config.sync_real_time))
     {
+      config.sync_real_time = true;
       if(config.sync_real_time)
       {
         mj_sync_delay = duration_us(0);
